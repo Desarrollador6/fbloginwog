@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Login Email</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-item text-center>
+    <img src={{usuario.picture}}>
+  </ion-item>
+  <ion-item>
+    <ion-avatar item-start>
+      <img src="https://firebase.google.com/_static/images/firebase/touchicon-180.png">
+    </ion-avatar>
+    <h2 text-wrap>Email: {{usuario.email}}</h2>
+    <p text-wrap>Fecha creacion: {{usuario.creationTime}}</p>
+    <p text-wrap>Ultimo login: {{usuario.lastSignInTime}}</p>
+    <p text-wrap>Tipo login: {{usuario.signInMethod}}</p>
+    <p text-wrap>Login FireBase: {{usuario.u}}</p>
+  </ion-item>
+  <br>
+  <div text-center>
+    <button full ion-button icon-end (click)="logout()">
+      Salir
+      <ion-icon name="log-out"></ion-icon>
+    </button>
+  </div>
+  <ion-card>
+
+    <ion-card-header>
+      JSON - Email
+    </ion-card-header>
+
+    <ion-card-content>
+      {{jsonDataCorreo}}
+    </ion-card-content>
+
+  </ion-card>
+</ion-content>

@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Login Google</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-item *ngIf="usuario" text-center>
+    <img src={{usuario.picture}}>
+  </ion-item>
+  <ion-item *ngIf="usuario">
+    <ion-avatar item-start>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1024px-Google_%22G%22_Logo.svg.png">
+    </ion-avatar>
+    <h2 text-wrap>Nombre: {{usuario.name}}</h2>
+    <h2 text-wrap>Email: {{usuario.email}}</h2>
+    <p text-wrap>Dominio: {{usuario.hd}}</p>
+    <p text-wrap>Metodo Login: {{usuario.signInMethod}}</p>
+    <p text-wrap>Login FireBase: {{usuario.u}}</p>
+  </ion-item>
+  <br>
+  <div text-center>
+    <button full ion-button icon-end (click)="logout()">
+      Salir
+      <ion-icon name="log-out"></ion-icon>
+    </button>
+  </div>
+  <ion-card>
+
+    <ion-card-header>
+      JSON - Google
+    </ion-card-header>
+
+    <ion-card-content>
+      {{jsonDataGoogle}}
+    </ion-card-content>
+
+  </ion-card>
+
+</ion-content>

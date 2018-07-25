@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Ingreso</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="login()" [formGroup]="loginForm">
+    <ion-list inset>
+
+      <ion-item>
+        <ion-input type="text" placeholder="Correo" formControlName="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="password" placeholder="Contraseña" formControlName="password"></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+    <div padding-horizontal>
+      <div class="form-error">{{loginError}}</div>
+
+      <button ion-button full type="submit" [disabled]="!loginForm.valid">Entrar</button>
+
+      <button ion-button icon-left block clear (click)="signup()">
+        <ion-icon name="person-add"></ion-icon>
+        Registrarse
+      </button>
+
+      <ion-list>
+
+        <button ion-button icon-left block clear (click)="loginWithGoogle()">
+          <ion-icon name="logo-google"></ion-icon>
+          Ingresar con Google
+        </button>
+
+        <button ion-button icon-left block clear (click)="loginWithGitHub()">
+          <ion-icon name="logo-github"></ion-icon>
+          Ingresar con GitHub
+        </button>
+
+        <!-- <button ion-button icon-left block clear (click)="loginWithFacebook()">
+          <ion-icon name="logo-facebook"></ion-icon>
+          Ingresar con Facebook
+        </button> -->
+
+      </ion-list>
+    </div>
+  </form>
+</ion-content>
