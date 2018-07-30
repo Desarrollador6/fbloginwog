@@ -39,6 +39,9 @@ export class HomePage {
     console.debug("HomePage");
   }
 
+  /** 
+   * Funcion encargada de ejecutar la logica para el proceso de login EMAIL
+  */
   login() {
     let data = this.loginForm.value;
 
@@ -64,6 +67,9 @@ export class HomePage {
     );
   }
 
+  /** 
+   * Funcion encargada de ejecutar la logica para el proceso de login GMAIL
+  */
   loginWithGoogle() {
     this.auth.signInWithGoogle()
       .then(
@@ -79,6 +85,9 @@ export class HomePage {
         });
   }
 
+  /** 
+   * Funcion encargada de ejecutar la logica para el proceso de login GITHUB
+  */
   loginWithGitHub(){
     this.auth.signInWithGoogle()
       .then(
@@ -94,6 +103,9 @@ export class HomePage {
         });
   }
 
+  /** 
+   * Funcion encargada de ejecutar la logica para el proceso de login FACEBOOK
+  */
   loginWithFacebook() {
     this.auth.signInWithFacebook()
       .then(
@@ -109,10 +121,16 @@ export class HomePage {
         });
   }
 
+  /** 
+   * Funcion encargada de ejecutar la logica para el proceso de registro cliente EMAIL
+  */
   signup() {
     this.navCtrl.push(RegistroPage);
   }
 
+  /** 
+   * Funcion encargada de mostrar en el front los procesos por funcion
+  */
   presentToast(mensaje, data) {
     let toast = this.toastCtrl.create({
       message: mensaje + " " + data,

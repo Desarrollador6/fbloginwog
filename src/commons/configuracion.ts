@@ -68,6 +68,7 @@ export class AppConfig {
     //Tutoriales
     //https://medium.com/appseed-io/integrating-firebase-password-and-google-authentication-into-your-ionic-3-app-2421cee32db9
     //https://javebratt.com/ionic-social-login-firebase/
+    //https://firebase.google.com/docs/web/setup?hl=es-419
     //FireBase@4.6.0
     //Plugins Instalados
     //ionic cordova plugin add cordova-universal-links-plugin --save
@@ -75,7 +76,6 @@ export class AppConfig {
     //cordova plugin add cordova-plugin-browsertab
     //cordova plugin add cordova-plugin-inappbrowser
     //ionic cordova plugin add cordova-plugin-customurlscheme --variable \  URL_SCHEME=com.firebase.cordova --save
-
 
     public roles() {
         let rol = this.getConf().OrgId;

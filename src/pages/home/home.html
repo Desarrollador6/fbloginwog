@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <form (ngSubmit)="login()" [formGroup]="loginForm">
+  <form [formGroup]="loginForm">
     <ion-list inset>
 
       <ion-item>
@@ -24,7 +24,7 @@
     <div padding-horizontal>
       <div class="form-error">{{loginError}}</div>
 
-      <button ion-button full type="submit" [disabled]="!loginForm.valid">Entrar</button>
+      <button ion-button full (click)="login()" type="submit" [disabled]="!loginForm.valid">Entrar</button>
 
       <button ion-button icon-left block clear (click)="signup()">
         <ion-icon name="person-add"></ion-icon>

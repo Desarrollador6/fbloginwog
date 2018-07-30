@@ -21,28 +21,62 @@ export class AuthService {
         });
     }
 
+    //Estados de persistencia https://firebase.google.com/docs/auth/web/auth-state-persistence?hl=es-419
     signInWithEmail(credentials) {
-        console.log('Sign in with email');
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+            .then(data => {
+                console.log('Sign in with email');
+                // Existing and future Auth states are now persisted in the current
+                // session only. Closing the window would clear any existing state even
+                // if a user forgets to sign out.
+                // ...
+                // New sign-in will be persisted with session persistence.
+                return this.afAuth.auth.signInWithEmailAndPassword(credentials.email,
+                    credentials.password);
+            })
+            .catch(function (error) {
+                console.log('Sign in with email error');
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                return this.afAuth.auth.signInWithEmailAndPassword(credentials.email,
+                    credentials.password);
+            });
         return this.afAuth.auth.signInWithEmailAndPassword(credentials.email,
             credentials.password);
     }
 
+    /** 
+    * Funcion encargada de crear usuario, email y password
+    */
     signUp(credentials) {
         return this.afAuth.auth.createUserWithEmailAndPassword(credentials.email, credentials.password);
     }
 
+    /** 
+    * Funcion encargada de cerrar sesion y limpiar token de login
+    */
     signOut(): Promise<void> {
         return this.afAuth.auth.signOut();
     }
 
+    /** 
+    * Funcion encargada de retornar el estado actual (login) de un usuario
+    */
     get authenticated(): boolean {
         return this.user !== null;
     }
 
+    /** 
+    * Funcion encargada de retornar la data usuario
+    */
     getUser() {
         return this.user;
     }
 
+    /** 
+    * Funcion encargada de retornar solo el email del usuario
+    */
     getEmail() {
         return this.user && this.user.email;
     }
@@ -52,41 +86,9 @@ export class AuthService {
         return this.oauthSignInGoogle(new firebase.auth.GoogleAuthProvider());
     }
 
-    private oauthSignInWithRedirect(provider: AuthProvider) {
-
-        this.presentToast("Calling oauthSignInWithRedirect", "", "top");
-        console.debug("(<any>window).cordova");
-        return this.afAuth.auth.signInWithRedirect(provider)
-            .then(
-                data => {
-                this.presentToast("signInWithRedirect OK", data, "middle");
-                console.debug("signInWithRedirect");
-                return this.afAuth.auth.getRedirectResult()
-                    .then(result => {
-                        this.presentToast("getRedirectResult OK", result, "bottom");
-                        // This gives you a Google Access Token.
-                        // You can use it to access the Google API.
-                        let token = result.credential;
-                        // The signed-in user info.
-                        let user = result.user;
-                        console.debug("Data usuario", result);
-                        this.usuarioModelo.setObjUsu(result);
-                        console.debug("Data usuario GET", this.usuarioModelo.getObjUsu());
-                        return result;
-                    })
-                    .catch(function (error) {
-                        this.presentToast("getRedirectResult ERROR", error, "bottom");
-                        console.debug(error);
-                        // Handle Errors here.
-                        alert(error.message);
-                    });
-            });
-    }
-
-
     private oauthSignInGoogle(provider: AuthProvider) {
         this.presentToast("Calling oauthSignIn", "", "top");
-        if (!(<any>window).cordova) {
+        if (!(<any>window).cordova) { //Verifica si el proceso actual se esta ejecutando desde cordova
             console.debug("!(<any>window).cordova");
             return this.afAuth.auth.signInWithPopup(provider)
                 .then(result => {
@@ -98,8 +100,8 @@ export class AuthService {
                     console.debug("Data usuario", result);
                     this.usuarioModelo.setObjUsu(result);
                     return result;
-                    // ...
-                }).catch(error => {
+                })
+                .catch(error => {
                     this.presentToast("signInWithPopup ERROR", error, "middle");
                     // Handle Errors here.
                     //var errorCode = error.code;
@@ -142,7 +144,7 @@ export class AuthService {
         console.log('Sign in with GitHub');
         return this.oauthSignInGitHub(new firebase.auth.GithubAuthProvider());
     }
-    
+
     private oauthSignInGitHub(provider: AuthProvider) {
         this.presentToast("Calling oauthSignIn", "", "top");
         if (!(<any>window).cordova) {
@@ -156,7 +158,8 @@ export class AuthService {
                     //var user = result.user;
                     console.debug("Data usuario", result);
                     // ...
-                }).catch(error => {
+                })
+                .catch(error => {
                     this.presentToast("signInWithPopup ERROR", error, "middle");
                     // Handle Errors here.
                     //var errorCode = error.code;
@@ -211,8 +214,8 @@ export class AuthService {
                     // The signed-in user info.
                     //var user = result.user;
                     console.debug("Data usuario", result);
-                    // ...
-                }).catch(error => {
+                })
+                .catch(error => {
                     this.presentToast("signInWithPopup ERROR", error, "middle");
                     // Handle Errors here.
                     //var errorCode = error.code;
